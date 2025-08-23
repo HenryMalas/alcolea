@@ -1,0 +1,6 @@
+<h2>Calendario</h2>
+<ul>
+<?php foreach ($eventos as $evento): ?>
+    <li><?= $evento->fecha ?> - <?= Html::link("eventos/ver/{$evento->id}", $evento->titulo) ?></li>
+<?php endforeach; ?>
+</ul>

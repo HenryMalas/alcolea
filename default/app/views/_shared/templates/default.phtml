@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
- <head>
-  <meta charset=<?= APP_CHARSET ?> >
-  <title>KumbiaPHP Framework</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <?php Tag::css('kumbia') ?>
-  <?= Html::includeCss() ?>
+<head>
+    <meta charset="<?= APP_CHARSET ?>">
+    <title>Turismo Alcolea</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <?php Tag::css('kumbia') ?>
+    <?= Html::includeCss() ?>
 </head>
 <body>
-<div class="container">
-  <header class="row">
-      <div class="col-8">
-          <?= Html::link('', Html::img('kumbiaphp.svg', 'KumbiaPHP logo'), 'title="Inicio"') ?>
-      </div>
-      <div class="col-4 text-right">
-          App: <strong><?= basename(dirname(APP_PATH)) ?></strong> (<?= PRODUCTION ? 'Production' : 'Development' ?>)
-      </div>
-  </header>
-  <?php View::content() ?>
-  <?php View::partial('kumbia/footer') ?>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <?= Html::link('', 'Turismo Alcolea', 'class="navbar-brand" title="Inicio"') ?>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><?= Html::link('lugares', 'Qué ver', 'class="nav-link"') ?></li>
+                <li class="nav-item"><?= Html::link('eventos', 'Calendario', 'class="nav-link"') ?></li>
+                <li class="nav-item"><?= Html::link('galeria', 'Galería', 'class="nav-link"') ?></li>
+                <li class="nav-item"><?= Html::link('establecimientos', 'Establecimientos', 'class="nav-link"') ?></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container mt-4">
+    <?php View::content() ?>
+    <?php View::partial('kumbia/footer') ?>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
