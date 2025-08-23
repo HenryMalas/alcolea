@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-teal" href="/">Alcolea · Turismo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav1">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="/sections/show/iglesia">Iglesia</a></li>
+                <li class="nav-item"><a class="nav-link" href="/sections/show/museo">Museo</a></li>
+                <li class="nav-item"><a class="nav-link" href="/sections/show/casa-de-piedra">Casa de Piedra</a></li>
+                <li class="nav-item"><a class="nav-link" href="/establishments">Establecimientos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/gallery">Galería</a></li>
+                <li class="nav-item"><a class="nav-link" href="/hemeroteca">Hemeroteca</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Contacto</a></li>
+                <?php if (isset($menu_extra)) foreach ($menu_extra as $mi): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo $mi->href ?>" <?php echo $mi->is_external ? 'target="_blank" rel="noopener"' : '' ?>><?php echo $mi->label ?></a>
+                    </li>
+                <?php endforeach ?>
+            </ul>
+        </div>
+    </div>
+</nav>

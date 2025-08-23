@@ -1,0 +1,47 @@
+<div class="my-5" id="cal">
+    <div class="d-flex align-items-end gap-2 mb-3">
+        <h2 class="h3 m-0">Calendario</h2>
+        <div class="text-muted">Fechas con actividad (clic para ver detalle)</div>
+    </div>
+    <div class="row g-3">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <button class="btn btn-sm btn-outline-secondary" id="prevMonth">◀</button>
+                    <div id="calTitle" class="fw-bold">Mes Año</div>
+                    <button class="btn btn-sm btn-outline-secondary" id="nextMonth">▶</button>
+                </div>
+                <div class="card-body">
+                    <div class="row row-cols-7 g-1 small text-center fw-semibold text-muted mb-1">
+                        <div>L</div>
+                        <div>M</div>
+                        <div>X</div>
+                        <div>J</div>
+                        <div>V</div>
+                        <div>S</div>
+                        <div>D</div>
+                    </div>
+                    <div id="calGrid" class="row row-cols-7 g-1"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h3 class="h5">Próximas actividades</h3>
+                    <div id="eventList">
+                        <?php foreach ($events as $ev): ?>
+                            <div class="border rounded p-2 mb-2">
+                                <strong><?php echo $ev->title ?></strong>
+                                <div class="small text-muted"><?php echo $ev->category ?> · <?php echo date('d/m/Y', strtotime($ev->start_date)) ?></div>
+                                <?php if ($ev->place): ?><div class="small"><?php echo $ev->place ?></div><?php endif; ?>
+                                <?php if ($ev->section_id): ?><a class="btn btn-sm btn-outline-teal mt-2" href="/sections/show/<?php echo (new Section)->find_first($ev->section_id)->slug ?>">Ver sección</a><?php endif; ?>
+                            </div>
+                        <?php endforeach ?>
+                    </div>
+                    <div class="text-muted small">*Datos de ejemplo, sustituir por reales.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

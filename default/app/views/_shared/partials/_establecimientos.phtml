@@ -1,0 +1,31 @@
+<div class="my-5">
+    <div class="d-flex align-items-end gap-2 mb-3">
+        <h2 class="h3 m-0">Establecimientos</h2>
+        <div class="text-muted">Bares, restaurantes, comercios y alojamientos</div>
+    </div>
+    <form class="row g-2 align-items-center mb-3" method="get" action="/establishments/index/">
+        <div class="col-md-6"><input type="search" class="form-control" name="q" placeholder="Buscar…" value="<?php echo Input::get('q') ?>"></div>
+        <div class="col-md-6 d-flex gap-2">
+            <a class="btn btn-sm btn-outline-secondary" href="/establishments">Todos</a>
+            <a class="btn btn-sm btn-outline-secondary" href="/establishments/index/bar">Bares</a>
+            <a class="btn btn-sm btn-outline-secondary" href="/establishments/index/restaurante">Restaurantes</a>
+            <a class="btn btn-sm btn-outline-secondary" href="/establishments/index/comercio">Comercios</a>
+            <a class="btn btn-sm btn-outline-secondary" href="/establishments/index/alojamiento">Alojamientos</a>
+        </div>
+    </form>
+    <div class="row g-3">
+        <?php foreach ($establishments as $e): if (Input::has('q') && stripos($e->name . ' ' . $e->description, Input::get('q')) === false) continue; ?>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="ratio ratio-16x9 bg-light"><?php if ($e->photo_url) echo '<img class=\'w-100 h-100 object-fit-cover\' src=\'' . $e->photo_url . '\' alt=\'' . htmlspecialchars($e->name) . '\'>' ?></div>
+                    <div class="card-body">
+                        <div class="small text-uppercase text-muted mb-1"><?php echo $e->category ?></div>
+                        <h3 class="h5"><?php echo $e->name ?></h3>
+                        <p class="small"><?php echo $e->description ?></p>
+                        <?php if ($e->phone): ?><a class="btn btn-sm btn-outline-teal" href="tel:<?php echo $e->phone ?>"><?php echo $e->phone ?></a><?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach ?>
+    </div>
+</div>
