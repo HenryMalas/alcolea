@@ -1,0 +1,6 @@
+<h2>Establecimientos</h2>
+<ul>
+<?php foreach ($establecimientos as $establecimiento): ?>
+    <li><?= Html::link("establecimientos/ver/{$establecimiento->id}", $establecimiento->nombre) ?> - <?= $establecimiento->categoria ?></li>
+<?php endforeach; ?>
+</ul>

@@ -1,0 +1,8 @@
+<h2><?= $lugar->nombre ?></h2>
+<p><?= $lugar->descripcion ?></p>
+<?php if ($lugar->foto): ?>
+    <img src="<?= $lugar->foto ?>" alt="<?= $lugar->nombre ?>">
+<?php endif; ?>
+<?php if ($lugar->video): ?>
+    <div class="video"><?= $lugar->video ?></div>
+<?php endif; ?>
