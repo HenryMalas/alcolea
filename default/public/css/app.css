@@ -1,0 +1,7 @@
+:root{--teal:#0f766e;--teal-dark:#115e59}
+.text-teal{color:var(--teal)!important}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-outline-teal{border-color:var(--teal);color:var(--teal)}
+.btn-outline-teal:hover{background:var(--teal);color:#fff}
+.bg-teal{background:var(--teal)!important}
+.hero{background:linear-gradient(135deg, rgba(15,118,110,.9), rgba(20,184,166,.6)), url('https://images.unsplash.com/photo-1470770903676-69b98201ea1c?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;}

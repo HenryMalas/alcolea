@@ -1,0 +1,21 @@
+<?php View::template('turismo') ?>
+<h1 class="h2"><?php echo $section->title ?></h1>
+<?php if ($section->subtitle): ?><p class="text-muted"><?php echo $section->subtitle ?></p><?php endif; ?>
+<div class="mb-4"><?php echo $section->body_html ?></div>
+<?php if ($section->video_url): ?>
+  <div class="ratio ratio-16x9 mb-4"><iframe src="<?php echo $section->video_url ?>" allowfullscreen></iframe></div>
+<?php endif; ?>
+<h2 class="h5">Galería</h2>
+<div class="row g-3 mb-4">
+  <?php foreach ($images as $g): ?>
+    <div class="col-6 col-md-3"><img class="img-fluid rounded" src="<?php echo $g->url ?>" alt="<?php echo htmlspecialchars($g->alt) ?>"></div>
+  <?php endforeach ?>
+</div>
+<?php if ($events): ?>
+<h2 class="h5">Próximos eventos</h2>
+<ul class="list-unstyled">
+  <?php foreach ($events as $ev): ?>
+    <li class="mb-2"><strong><?php echo $ev->title ?></strong> <span class="text-muted small"><?php echo date('d/m/Y', strtotime($ev->start_date)) ?></span></li>
+  <?php endforeach ?>
+</ul>
+<?php endif; ?>
