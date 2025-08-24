@@ -5,7 +5,8 @@
   </div>
   <div class="row g-3" id="gal">
     <?php foreach ($gallery as $g): ?>
-      <div class="col-6 col-md-3"><a href="<?php echo $g->url ?>" target="_blank" class="d-block"><img class="img-fluid rounded shadow-sm" src="<?php echo $g->url ?>" alt="<?php echo htmlspecialchars($g->alt) ?>"></a></div>
+      <div class="col-6 col-md-3"><a href="<?php echo $g->url ?>" class="d-block"><img class="img-fluid rounded shadow-sm" src="<?php echo $g->url ?>" alt="<?php echo htmlspecialchars($g->alt) ?>"></a></div>
     <?php endforeach ?>
   </div>
+  <div class="lightbox" id="lightbox"><img src="" alt=""></div>
 </div>

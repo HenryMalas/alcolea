@@ -85,3 +85,39 @@ document.addEventListener('click', (e)=>{
   document.getElementById('nextMonth')?.addEventListener('click',()=>{ ref.setMonth(ref.getMonth()+1); render(); });
   render();
 })();
+
+// Cerrar menú al seleccionar un enlace
+document.querySelectorAll('.navbar-nav .nav-link').forEach(link=>{
+  link.addEventListener('click',()=>{
+    const nav = document.getElementById('nav1');
+    const instance = bootstrap.Collapse.getInstance(nav);
+    instance && instance.hide();
+  });
+});
+
+// Desplazamiento suave para anclas
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id = a.getAttribute('href');
+    const target = document.querySelector(id);
+    if(target){
+      e.preventDefault();
+      target.scrollIntoView({behavior:'smooth'});
+    }
+  });
+});
+
+// Lightbox de galería
+(function(){
+  const gal = document.getElementById('gal');
+  const lb = document.getElementById('lightbox');
+  if(!gal || !lb) return;
+  gal.addEventListener('click', e=>{
+    const a = e.target.closest('a');
+    if(!a) return;
+    e.preventDefault();
+    lb.querySelector('img').src = a.href;
+    lb.classList.add('open');
+  });
+  lb.addEventListener('click', ()=>lb.classList.remove('open'));
+})();

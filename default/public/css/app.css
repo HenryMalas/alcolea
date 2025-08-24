@@ -25,3 +25,8 @@
 .event-panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid #e2e8f0;padding:1rem}
 .event{padding:.6rem;border:1px solid #e2e8f0;border-radius:12px;margin:.4rem 0}
 .event .k{font-size:.75rem;color:#475569}
+
+/* Galería con lightbox */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;padding:1rem;z-index:1050}
+.lightbox.open{display:flex}
+.lightbox img{max-width:min(100%,1100px);max-height:80vh;border-radius:12px}
