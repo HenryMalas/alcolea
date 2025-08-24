@@ -1,24 +1,24 @@
-<nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+<header>
   <div class="container">
-    <a class="navbar-brand fw-bold text-teal" href="/">Alcolea · Turismo</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav1">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="nav1">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" href="/sections/show/iglesia">Iglesia</a></li>
-        <li class="nav-item"><a class="nav-link" href="/sections/show/museo">Museo</a></li>
-        <li class="nav-item"><a class="nav-link" href="/sections/show/casa-de-piedra">Casa de Piedra</a></li>
-        <li class="nav-item"><a class="nav-link" href="/establishments">Establecimientos</a></li>
-        <li class="nav-item"><a class="nav-link" href="/gallery">Galería</a></li>
-        <li class="nav-item"><a class="nav-link" href="/hemeroteca">Hemeroteca</a></li>
-        <li class="nav-item"><a class="nav-link" href="/contact">Contacto</a></li>
+    <nav aria-label="Navegación principal">
+      <a class="brand" href="/" title="Inicio Alcolea">
+        <span class="logo" aria-hidden="true">A</span>
+        <span>Alcolea · Turismo</span>
+      </a>
+      <div class="spacer"></div>
+      <button class="burger" aria-label="Abrir menú" id="btnBurger">☰</button>
+      <div class="menu" id="mainMenu" role="menubar">
+        <a href="/sections/show/iglesia" role="menuitem">Iglesia</a>
+        <a href="/sections/show/museo" role="menuitem">Museo</a>
+        <a href="/sections/show/casa-de-piedra" role="menuitem">Casa de Piedra</a>
+        <a href="/establishments" role="menuitem">Establecimientos</a>
+        <a href="/gallery" role="menuitem">Galería</a>
+        <a href="/hemeroteca" role="menuitem">Hemeroteca</a>
         <?php if (isset($menu_extra)) foreach ($menu_extra as $mi): ?>
-          <li class="nav-item">
-            <a class="nav-link" href="<?php echo $mi->href ?>" <?php echo $mi->is_external?'target="_blank" rel="noopener"':'' ?>><?php echo $mi->label ?></a>
-          </li>
+          <a href="<?php echo $mi->href ?>" <?php echo $mi->is_external?'target="_blank" rel="noopener"':'' ?> role="menuitem"><?php echo $mi->label ?></a>
         <?php endforeach ?>
-      </ul>
-    </div>
+        <a href="/contact" class="cta" role="menuitem">Contacto</a>
+      </div>
+    </nav>
   </div>
-</nav>
+</header>

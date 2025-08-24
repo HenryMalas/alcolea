@@ -1,12 +1,9 @@
-<div class="my-5">
-  <div class="d-flex align-items-end gap-2 mb-3">
-    <h2 class="h3 m-0">Galería</h2>
-    <div class="text-muted">Ligada al resto de secciones</div>
-  </div>
-  <div class="row g-3" id="gal">
+<section id="galeria" class="container">
+  <div class="section-title"><h2>Galería</h2><span class="subtitle">Ligada al resto de secciones</span></div>
+  <div class="gallery" id="gal">
     <?php foreach ($gallery as $g): ?>
-      <div class="col-6 col-md-3"><a href="<?php echo $g->url ?>" class="d-block"><img class="img-fluid rounded shadow-sm" src="<?php echo $g->url ?>" alt="<?php echo htmlspecialchars($g->alt) ?>"></a></div>
+      <a href="<?php echo $g->url ?>"><img src="<?php echo $g->url ?>" alt="<?php echo htmlspecialchars($g->alt) ?>"></a>
     <?php endforeach ?>
   </div>
   <div class="lightbox" id="lightbox"><img src="" alt=""></div>
-</div>
+</section>

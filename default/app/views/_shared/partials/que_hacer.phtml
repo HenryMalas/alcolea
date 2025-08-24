@@ -1,26 +1,29 @@
-<div class="my-5">
-  <div class="d-flex align-items-end gap-2 mb-3">
-    <h2 class="h3 m-0">Qué hacer</h2>
-    <div class="text-muted">Rutas, cultura y deporte</div>
+<section id="que-hacer" class="container alt">
+  <div class="section-title"><h2>Qué hacer</h2><span class="subtitle">Rutas, cultura y deporte</span></div>
+  <div class="tabs" id="qhTabs" role="tablist">
+    <button class="active" data-target="#t-rutas" role="tab">Rutas</button>
+    <button data-target="#t-cultura" role="tab">Actividades culturales</button>
+    <button data-target="#t-deporte" role="tab">Deporte</button>
   </div>
-  <ul class="nav nav-pills" id="qhTabs">
-    <li class="nav-item"><button class="nav-link active" data-target="#t-rutas">Rutas</button></li>
-    <li class="nav-item"><button class="nav-link" data-target="#t-cultura">Actividades culturales</button></li>
-    <li class="nav-item"><button class="nav-link" data-target="#t-deporte">Deporte</button></li>
-  </ul>
-  <div class="mt-3">
-    <div id="t-rutas" class="tab-pane show">
-      <div class="row g-3">
-        <div class="col-md-4"><div class="card h-100"><div class="ratio ratio-16x9 bg-light"></div><div class="card-body"><h3 class="h5">Ruta del Río</h3><p>Paseo accesible por el río Dulce.</p></div></div></div>
-        <div class="col-md-4"><div class="card h-100"><div class="ratio ratio-16x9 bg-light"></div><div class="card-body"><h3 class="h5">Ruta de Aves</h3><p>Observación de aves locales.</p></div></div></div>
-        <div class="col-md-4"><div class="card h-100"><div class="ratio ratio-16x9 bg-light"></div><div class="card-body"><h3 class="h5">Ruta Botánica</h3><p>Itinerario interpretativo.</p></div></div></div>
-      </div>
-    </div>
-    <div id="t-cultura" class="tab-pane d-none">
-      <div class="alert alert-info">Talleres, conciertos y visitas guiadas. (Puedes dinamizarlo con eventos/categoría)</div>
-    </div>
-    <div id="t-deporte" class="tab-pane d-none">
-      <div class="alert alert-info">Polideportivo, pádel y rutas BTT. (Puedes dinamizarlo con secciones y eventos)</div>
+  <div id="t-rutas" class="tab-pane">
+    <div class="grid cols-3">
+      <article class="card"><div class="media"></div><div class="body"><h3>Ruta del Río</h3><p>Paseo accesible por el río Dulce.</p><span class="chip">Naturaleza</span></div></article>
+      <article class="card"><div class="media"></div><div class="body"><h3>Ruta de Aves</h3><p>Observación de aves locales.</p><span class="chip">Aves</span></div></article>
+      <article class="card"><div class="media"></div><div class="body"><h3>Ruta Botánica</h3><p>Itinerario interpretativo.</p><span class="chip">Botánica</span></div></article>
     </div>
   </div>
-</div>
+  <div id="t-cultura" class="tab-pane" hidden>
+    <div class="grid cols-3">
+      <article class="card"><div class="media"></div><div class="body"><h3>Taller en el Museo</h3><p>Vinculado al calendario y canal de YouTube.</p><span class="chip">Cultura</span></div></article>
+      <article class="card"><div class="media"></div><div class="body"><h3>Conciertos</h3><p>Programación estacional en plaza y templo.</p><span class="chip">Música</span></div></article>
+      <article class="card"><div class="media"></div><div class="body"><h3>Visitas guiadas</h3><p>Fechas señaladas, reserva previa.</p><span class="chip">Patrimonio</span></div></article>
+    </div>
+  </div>
+  <div id="t-deporte" class="tab-pane" hidden>
+    <div class="grid cols-3">
+      <article class="card"><div class="media"></div><div class="body"><h3>Polideportivo</h3><p>Instalaciones y reservas.</p><span class="chip">Instalación</span></div></article>
+      <article class="card"><div class="media"></div><div class="body"><h3>Pista de pádel</h3><p>Horarios y actividades.</p><span class="chip">Instalación</span></div></article>
+      <article class="card"><div class="media"></div><div class="body"><h3>Rutas BTT</h3><p>Circuitos circulares y tracks GPX.</p><span class="chip">Rutas</span></div></article>
+    </div>
+  </div>
+</section>
