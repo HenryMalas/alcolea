@@ -2,7 +2,7 @@
 <?php View::partial('hero') ?>
 <?php View::partial('que_ver', null, array('key_sections'=>$key_sections)) ?>
 <?php View::partial('que_hacer') ?>
-<?php View::partial('calendario') ?>
+<?php View::partial('calendario', null, array('events'=>$events)) ?>
 <?php View::partial('galeria', null, array('gallery'=>$gallery)) ?>
 <?php View::partial('establecimientos', null, array('establishments'=>$establishments)) ?>
 <script id="eventsJSON" type="application/json">
