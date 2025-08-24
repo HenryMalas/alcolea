@@ -29,7 +29,7 @@
                 <strong><?php echo $ev->title ?></strong>
                 <div class="small text-muted"><?php echo $ev->category ?> · <?php echo date('d/m/Y', strtotime($ev->start_date)) ?></div>
                 <?php if ($ev->place): ?><div class="small"><?php echo $ev->place ?></div><?php endif; ?>
-                <?php if ($ev->section_id): ?><a class="btn btn-sm btn-outline-teal mt-2" href="/sections/show/<?php echo (new Section)->find_first($ev->section_id)->slug ?>">Ver sección</a><?php endif; ?>
+                <?php if ($ev->section_id): ?><a class="btn btn-sm btn-outline-teal mt-2" href="/sections/show/<?php echo (new Sections)->find_first($ev->section_id)->slug ?>">Ver sección</a><?php endif; ?>
               </div>
             <?php endforeach ?>
           </div>

@@ -4,6 +4,6 @@ class EstablishmentsController extends AppController {
         $cond = "is_active=1";
         if ($category) { $cond .= " AND category='".addslashes($category)."'"; }
         $this->category = $category;
-        $this->establishments = (new Establishment)->find("conditions: $cond", "order: name ASC");
+        $this->establishments = (new Establishments)->find("conditions: $cond", "order: name ASC");
     }
 }

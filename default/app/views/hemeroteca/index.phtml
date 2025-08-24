@@ -16,7 +16,7 @@
           <strong><?php echo $e->title ?></strong>
           <div class="small text-muted"><?php echo $e->kind ?></div>
           <?php if ($e->file_url): ?><a class="btn btn-sm btn-outline-teal mt-2" href="<?php echo $e->file_url ?>" target="_blank">Abrir</a><?php endif; ?>
-          <?php if ($e->gallery_section_id): ?><a class="btn btn-sm btn-outline-teal mt-2" href="/sections/show/<?php echo (new Section)->find_first($e->gallery_section_id)->slug ?>">Ver galería</a><?php endif; ?>
+          <?php if ($e->gallery_section_id): ?><a class="btn btn-sm btn-outline-teal mt-2" href="/sections/show/<?php echo (new Sections)->find_first($e->gallery_section_id)->slug ?>">Ver galería</a><?php endif; ?>
         </div>
       </div>
     </div>

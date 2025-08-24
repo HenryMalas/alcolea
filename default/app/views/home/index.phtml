@@ -10,7 +10,7 @@
 $ev_json = array_map(function($ev){
   $slug = '';
   if ($ev->section_id) {
-    $s = (new Section)->find_first($ev->section_id);
+    $s = (new Sections)->find_first($ev->section_id);
     if ($s) $slug = $s->slug;
   }
   return [
