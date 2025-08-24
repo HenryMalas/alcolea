@@ -1,4 +1,5 @@
 <?php
+
 /**
  * KumbiaPHP web & app Framework.
  *
@@ -54,7 +55,7 @@ const PRODUCTION = false;
  * - Esta ruta se utiliza para cargar los archivos de la aplicacion
  * - En producción, es recomendable ponerla manual usando const
  */
-define('APP_PATH', dirname(__DIR__).'/app/');
+define('APP_PATH', dirname(__DIR__) . '/app/');
 //const APP_PATH = '/path/to/app/';
 
 /*
@@ -64,7 +65,7 @@ define('APP_PATH', dirname(__DIR__).'/app/');
  * - Ruta al directorio que contiene el núcleo de Kumbia (por defecto la ruta al directorio core)
  * - En producción, es recomendable ponerla manual usando const
  */
-define('CORE_PATH', dirname(APP_PATH, 2).'/core/');
+define('CORE_PATH', dirname(APP_PATH, 2) . '/core/');
 //const CORE_PATH = '/path/to/core/';
 
 /*
@@ -77,7 +78,8 @@ define('CORE_PATH', dirname(APP_PATH, 2).'/core/');
  *
  *  EN PRODUCCION ESTA CONSTANTE DEBERÍA SER ESTABLECIDA MANUALMENTE
  */
-define('PUBLIC_PATH', substr($_SERVER['SCRIPT_NAME'], 0, -9)); // - index.php string[9]
+//define('PUBLIC_PATH', substr($_SERVER['SCRIPT_NAME'], 0, -9)); // - index.php string[9]
+define('PUBLIC_PATH', 'alcolea/');
 
 /**
  * En producción descomentar la línea de arriba y usar const
@@ -96,7 +98,7 @@ $url = $_SERVER['PATH_INFO'] ?? '/';
  * Obtiene la url usando $_GET['_url']
  * Cambiar también en el .htaccess.
  */
- //$url = $_GET['_url'] ?? '/';
+//$url = $_GET['_url'] ?? '/';
 
 /**
  * Carga el gestor de arranque
@@ -105,4 +107,4 @@ $url = $_SERVER['PATH_INFO'] ?? '/';
  * @see Bootstrap
  */
 //require APP_PATH . 'libs/bootstrap.php'; //bootstrap de app
-require CORE_PATH.'kumbia/bootstrap.php'; //bootstrap del core
+require CORE_PATH . 'kumbia/bootstrap.php'; //bootstrap del core

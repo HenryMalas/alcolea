@@ -14,10 +14,10 @@
     </div>
   </form>
   <div class="row g-3">
-    <?php foreach ($establishments as $e): if (Input::has('q') && stripos($e->name.' '.$e->description, Input::get('q'))===false) continue; ?>
+    <?php foreach ($establishments as $e): if (Input::hasGet('q') && stripos($e->name . ' ' . $e->description, Input::get('q')) === false) continue; ?>
       <div class="col-md-4">
         <div class="card h-100 shadow-sm">
-          <div class="ratio ratio-16x9 bg-light"><?php if ($e->photo_url) echo '<img class=\'w-100 h-100 object-fit-cover\' src=\''.$e->photo_url.'\' alt=\''.htmlspecialchars($e->name).'\'>' ?></div>
+          <div class="ratio ratio-16x9 bg-light"><?php if ($e->photo_url) echo '<img class=\'w-100 h-100 object-fit-cover\' src=\'' . $e->photo_url . '\' alt=\'' . htmlspecialchars($e->name) . '\'>' ?></div>
           <div class="card-body">
             <div class="small text-uppercase text-muted mb-1"><?php echo $e->category ?></div>
             <h3 class="h5"><?php echo $e->name ?></h3>

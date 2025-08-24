@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Turismo Alcolea</title>
+  <meta name="description" content="Portal de turismo de Alcolea: qué ver, qué hacer, calendario, fiestas, naturaleza, establecimientos y más." />
+  <style>
+    /* --- Reset y base --- */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;line-height:1.6;color:#0f172a;background:#f8fafc}
+    img{max-width:100%;display:block;height:auto}
+    a{color:inherit;text-decoration:none}
+    :root{
+      --brand:#0f766e;         /* verde azulado */
+      --brand-dark:#115e59;
+      --brand-ink:#0b3b38;
+      --accent:#eab308;        /* dorado */
+      --ink:#0f172a;
+      --muted:#64748b;
+      --bg:#f8fafc;
+      --card:#ffffff;
+      --ring:rgba(15,118,110,.25);
+      --radius:18px;
+      --shadow:0 12px 30px rgba(2,6,23,.08);
+      --shadow-sm:0 6px 16px rgba(2,6,23,.06);
+    }
+
+    /* --- Accesibilidad --- */
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{left:1rem;top:1rem;width:auto;height:auto;background:#fff;color:#000;padding:.5rem .75rem;border-radius:.5rem;z-index:1000}
+
+    /* --- Header / Nav --- */
+    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.8);backdrop-filter:saturate(180%) blur(8px);box-shadow:var(--shadow-sm)}
+    .container{max-width:1100px;margin:0 auto;padding:0 1rem}
+    nav{display:flex;align-items:center;gap:1rem;padding:.6rem 0}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:800;color:var(--brand-ink)}
+    .brand .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--brand),#14b8a6);display:grid;place-items:center;color:#fff;font-weight:900;box-shadow:var(--shadow-sm)}
+    .spacer{flex:1}
+    .menu{display:flex;flex-wrap:wrap;gap:.5rem}
+    .menu a{padding:.5rem .7rem;border-radius:10px;color:#0f172a}
+    .menu a:hover{background:#ecfeff}
+    .menu a.cta{background:var(--brand);color:#fff;font-weight:700}
+    .menu a.cta:hover{background:var(--brand-dark)}
+    .burger{display:none}
+    @media (max-width:1024px){
+      .menu{display:none}
+      .menu.open{display:flex;flex-direction:column;padding:.75rem;border-radius:14px;background:#fff;position:absolute;right:1rem;top:64px;box-shadow:var(--shadow)}
+      .burger{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;border:1px solid #e2e8f0}
+    }
+
+    /* --- Hero / Carrusel --- */
+    .hero{position:relative;isolation:isolate}
+    .slides{height:64vh;min-height:420px;max-height:720px;position:relative;overflow:hidden;border-radius:0 0 var(--radius) var(--radius)}
+    .slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease}
+    .slide.active{opacity:1}
+    .slide::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.45))}
+    .slide .img{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.1);filter:saturate(1.05)}
+    .hero-copy{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#fff;padding:2rem}
+    .hero-copy h1{font-size:clamp(28px,5vw,54px);line-height:1.1;margin:0 0 .6rem}
+    .hero-copy p{font-size:clamp(14px,2.4vw,18px);opacity:.95;margin:0 0 1rem}
+    .hero-actions{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+    .btn{display:inline-block;padding:.7rem 1rem;border-radius:12px;border:1px solid transparent;font-weight:700;box-shadow:var(--shadow-sm)}
+    .btn.primary{background:var(--brand);color:#fff}
+    .btn.primary:hover{background:var(--brand-dark)}
+    .btn.ghost{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
+
+    .badges{position:absolute;inset:auto 0 -20px 0;display:flex;gap:1rem;justify-content:center}
+    .badge{background:#fff;border-radius:999px;padding:.45rem .8rem;font-size:.85rem;box-shadow:var(--shadow)}
+
+    /* --- Secciones genéricas --- */
+    section{padding:3.2rem 0}
+    section.alt{background:#f1f5f9}
+    .section-title{margin:0 0 1.2rem;display:flex;align-items:baseline;gap:.7rem}
+    .section-title h2{font-size:clamp(22px,3.2vw,32px);margin:0;color:var(--brand-ink)}
+    .subtitle{color:var(--muted)}
+    .grid{display:grid;gap:1rem}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .grid.cols-4{grid-template-columns:repeat(4,1fr)}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    @media (max-width:900px){.grid.cols-4,.grid.cols-3{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.grid{grid-template-columns:1fr}}
+
+    /* --- Cards / mosaicos --- */
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow-sm);overflow:hidden;border:1px solid #e2e8f0}
+    .card .media{aspect-ratio:16/9;background:#e2e8f0}
+    .card .body{padding:1rem}
+    .chip{display:inline-block;background:#e0f2fe;color:#075985;padding:.25rem .55rem;border-radius:999px;font-size:.75rem;margin-right:.4rem}
+
+    /* --- Tabs simples --- */
+    .tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0 1rem}
+    .tabs button{padding:.5rem .8rem;background:#fff;border:1px solid #e2e8f0;border-radius:999px;cursor:pointer}
+    .tabs button.active{background:var(--brand);border-color:var(--brand);color:#fff}
+
+    /* --- Galería con lightbox --- */
+    .gallery{columns:4 220px;column-gap:12px}
+    .gallery a{display:block;margin:0 0 12px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm)}
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;padding:1rem}
+    .lightbox.open{display:flex}
+    .lightbox img{max-width:min(100%,1100px);max-height:80vh;border-radius:12px}
+
+    /* --- Calendario --- */
+    .calendar{display:grid;grid-template-columns:1fr 320px;gap:1rem}
+    @media (max-width:900px){.calendar{grid-template-columns:1fr}}
+    .cal{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid #e2e8f0}
+    .cal-head{display:flex;align-items:center;justify-content:space-between;padding:1rem;border-bottom:1px solid #e2e8f0}
+    .cal-head .title{font-weight:800}
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.4rem;padding:.8rem}
+    .dow{font-size:.8rem;color:#64748b;text-align:center}
+    .day{aspect-ratio:1/1;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid #e2e8f0;background:#fff;cursor:pointer;position:relative}
+    .day.muted{opacity:.45}
+    .day.today{outline:3px solid var(--ring)}
+    .day.has-event{background:#fff7ed;border-color:#fed7aa}
+    .day .dot{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:var(--accent)}
+    .event-panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid #e2e8f0;padding:1rem}
+    .event{padding:.6rem;border:1px solid #e2e8f0;border-radius:12px;margin:.4rem 0}
+    .event .k{font-size:.75rem;color:#475569}
+
+    /* --- Filtros (establecimientos) --- */
+    .filters{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0 1rem}
+    .filters input[type="search"]{flex:1;min-width:220px;padding:.6rem .8rem;border-radius:12px;border:1px solid #e2e8f0}
+    .filters .pill{padding:.45rem .75rem;border-radius:999px;border:1px solid #e2e8f0;background:#fff;cursor:pointer}
+    .filters .pill.active{background:#f0fdf4;border-color:#86efac}
+
+    /* --- Acordeón sencillo --- */
+    details{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:.6rem 1rem}
+    details+details{margin-top:.6rem}
+    summary{cursor:pointer;font-weight:700}
+
+    /* --- Footer --- */
+    footer{background:#0b3b38;color:#ecfeff;padding:2.2rem 0;margin-top:2rem}
+    footer a{color:#a7f3d0}
+    .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem}
+    @media (max-width:900px){.foot-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+  <header>
+    <div class="container">
+      <nav aria-label="Navegación principal">
+        <a class="brand" href="#inicio" title="Inicio Alcolea">
+          <span class="logo" aria-hidden="true">A</span>
+          <span>Alcolea · Turismo</span>
+        </a>
+        <div class="spacer"></div>
+        <button class="burger" aria-label="Abrir menú" id="btnBurger">☰</button>
+        <div class="menu" id="mainMenu" role="menubar">
+          <a href="#que-ver" role="menuitem">Qué ver</a>
+          <a href="#que-hacer" role="menuitem">Qué hacer</a>
+          <a href="#calendario" role="menuitem">Calendario</a>
+          <a href="#iglesia" role="menuitem">Iglesia</a>
+          <a href="#museo" role="menuitem">Museo</a>
+          <a href="#deportes" role="menuitem">Deportes</a>
+          <a href="#naturaleza" role="menuitem">Naturaleza</a>
+          <a href="#fiestas" role="menuitem">Fiestas</a>
+          <a href="#casa-de-piedra" role="menuitem">Casa de Piedra</a>
+          <a href="#entorno" role="menuitem">Entorno</a>
+          <a href="#galeria" role="menuitem">Galería</a>
+          <a href="#establecimientos" role="menuitem">Establecimientos</a>
+          <a href="#hemeroteca" role="menuitem">Hemeroteca</a>
+          <a href="#contacto" class="cta" role="menuitem">Contacto</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <!-- HERO -->
+    <section id="inicio" class="hero">
+      <div class="slides" aria-label="Galería de portada ciclando fotos">
+        <div class="slide active">
+          <div class="img" style="background-image:linear-gradient(0deg,rgba(0,0,0,.0),rgba(0,0,0,.0)),url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop');"></div>
+        </div>
+        <div class="slide">
+          <div class="img" style="background-image:linear-gradient(0deg,rgba(0,0,0,.0),rgba(0,0,0,.0)),url('https://images.unsplash.com/photo-1470770903676-69b98201ea1c?q=80&w=1600&auto=format&fit=crop');"></div>
+        </div>
+        <div class="slide">
+          <div class="img" style="background-image:linear-gradient(0deg,rgba(0,0,0,.0),rgba(0,0,0,.0)),url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1600&auto=format&fit=crop');"></div>
+        </div>
+      </div>
+      <div class="hero-copy">
+        <div>
+          <h1>Descubre Alcolea</h1>
+          <p>Patrimonio, naturaleza y tradición, todo a un paso.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#calendario">Ver calendario</a>
+            <a class="btn ghost" href="#que-ver">Qué ver</a>
+          </div>
+        </div>
+      </div>
+      <div class="badges container" aria-hidden="true">
+        <span class="badge">Iglesia • Museo • Casa de Piedra</span>
+        <span class="badge">Rutas • Aves • Parajes</span>
+        <span class="badge">Fiestas • Agenda cultural</span>
+      </div>
+    </section>
+
+    <!-- QUÉ VER -->
+    <section id="que-ver" class="container">
+      <div class="section-title"><h2>Qué ver</h2><span class="subtitle">Imprescindibles de Alcolea</span></div>
+      <div class="grid cols-3">
+        <article class="card">
+          <div class="media"><img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9f?q=80&w=1200&auto=format&fit=crop" alt="Fachada de iglesia"/></div>
+          <div class="body">
+            <h3>Iglesia parroquial</h3>
+            <p>Arquitectura y arte sacro. Textos, fotos y vídeo fijo.</p>
+            <a class="btn" href="#iglesia">Ver sección</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="media"><img src="https://images.unsplash.com/photo-1581195011046-08e6a0a5c7b9?q=80&w=1200&auto=format&fit=crop" alt="Sala de museo"/></div>
+          <div class="body">
+            <h3>Museo</h3>
+            <p>Descripción, fotos y actividades enlazadas al calendario y a YouTube.</p>
+            <a class="btn" href="#museo">Ver sección</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="media"><img src="https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=1200&auto=format&fit=crop" alt="Construcción de piedra"/></div>
+          <div class="body">
+            <h3>Casa de Piedra</h3>
+            <p>Elemento icónico. Textos, fotos y vídeo.</p>
+            <a class="btn" href="#casa-de-piedra">Ver sección</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- QUÉ HACER -->
+    <section id="que-hacer" class="container alt">
+      <div class="section-title"><h2>Qué hacer</h2><span class="subtitle">Rutas, cultura y deporte</span></div>
+      <div class="tabs" role="tablist">
+        <button class="active" data-tab="t-rutas" role="tab">Rutas</button>
+        <button data-tab="t-cultura" role="tab">Actividades culturales</button>
+        <button data-tab="t-deporte" role="tab">Deporte</button>
+      </div>
+      <div id="t-rutas" class="tab-panel">
+        <div class="grid cols-3">
+          <article class="card"><div class="media"></div><div class="body"><h3>Ruta del Río</h3><p>Paseo accesible por el cauce del río Dulce.</p><span class="chip">Naturaleza</span></div></article>
+          <article class="card"><div class="media"></div><div class="body"><h3>Ruta de Aves</h3><p>Observación de aves locales. Miradores señalizados.</p><span class="chip">Aves</span></div></article>
+          <article class="card"><div class="media"></div><div class="body"><h3>Ruta Botánica</h3><p>Itinerario interpretativo de flora y árboles singulares.</p><span class="chip">Botánica</span></div></article>
+        </div>
+      </div>
+      <div id="t-cultura" class="tab-panel" hidden>
+        <div class="grid cols-3">
+          <article class="card"><div class="media"></div><div class="body"><h3>Taller en el Museo</h3><p>Vinculado al calendario y canal de YouTube.</p><span class="chip">Cultura</span></div></article>
+          <article class="card"><div class="media"></div><div class="body"><h3>Conciertos</h3><p>Programación estacional en plaza y templo.</p><span class="chip">Música</span></div></article>
+          <article class="card"><div class="media"></div><div class="body"><h3>Visitas guiadas</h3><p>Fechas señaladas, reserva previa.</p><span class="chip">Patrimonio</span></div></article>
+        </div>
+      </div>
+      <div id="t-deporte" class="tab-panel" hidden>
+        <div class="grid cols-3">
+          <article class="card"><div class="media"></div><div class="body"><h3>Polideportivo</h3><p>Instalaciones y reservas.</p><span class="chip">Instalación</span></div></article>
+          <article class="card"><div class="media"></div><div class="body"><h3>Pista de pádel</h3><p>Horarios y actividades.</p><span class="chip">Instalación</span></div></article>
+          <article class="card"><div class="media"></div><div class="body"><h3>Rutas BTT</h3><p>Circuitos circulares y tracks GPX.</p><span class="chip">Rutas</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALENDARIO -->
+    <section id="calendario" class="container">
+      <div class="section-title"><h2>Calendario</h2><span class="subtitle">Fechas con actividad resaltadas y enlazadas a secciones</span></div>
+      <div class="calendar">
+        <div class="cal" aria-live="polite">
+          <div class="cal-head">
+            <button id="prevMonth" aria-label="Mes anterior">◀</button>
+            <div class="title" id="calTitle">Mes Año</div>
+            <button id="nextMonth" aria-label="Mes siguiente">▶</button>
+          </div>
+          <div class="cal-grid" id="calGrid">
+            <div class="dow">L</div><div class="dow">M</div><div class="dow">X</div><div class="dow">J</div><div class="dow">V</div><div class="dow">S</div><div class="dow">D</div>
+            <!-- días renderizados por JS -->
+          </div>
+        </div>
+        <aside class="event-panel">
+          <h3>Próximas actividades</h3>
+          <div id="eventList"></div>
+          <p class="subtitle">*Contenido de ejemplo. Sustituir por datos reales.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- IGLESIA -->
+    <section id="iglesia" class="container alt">
+      <div class="section-title"><h2>Iglesia</h2><span class="subtitle">Textos, fotos y vídeo</span></div>
+      <div class="grid cols-2">
+        <div>
+          <p>Breve descripción histórica y artística del templo. Añada aquí el texto definitivo, así como una galería de imágenes destacadas.</p>
+          <ul>
+            <li>Horario de visitas y cultos</li>
+            <li>Enlace a eventos de música sacra (ver calendario)</li>
+            <li>Descarga de folleto en PDF</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="media" style="aspect-ratio:16/9">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Vídeo de la iglesia" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MUSEO -->
+    <section id="museo" class="container">
+      <div class="section-title"><h2>Museo</h2><span class="subtitle">Descripción y actividades vinculadas</span></div>
+      <div class="grid cols-2">
+        <div>
+          <p>Información del museo: colecciones, horarios, entradas y actividades educativas con enlace a YouTube.</p>
+          <p><strong>Actividades:</strong> Talleres, visitas guiadas, charlas. Consulte las fechas en el calendario.</p>
+        </div>
+        <div class="card">
+          <div class="media"><img src="https://images.unsplash.com/photo-1554907984-15263bfd63a7?q=80&w=1200&auto=format&fit=crop" alt="Sala expositiva del museo"/></div>
+          <div class="body"><a class="btn" href="#calendario">Ver próximas actividades</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEPORTES -->
+    <section id="deportes" class="container alt">
+      <div class="section-title"><h2>Deportes</h2><span class="subtitle">Instalaciones, rutas y actividades</span></div>
+      <div class="grid cols-3">
+        <article class="card"><div class="media"></div><div class="body"><h3>Polideportivo</h3><p>Pistas multiusos y pabellón cubierto.</p></div></article>
+        <article class="card"><div class="media"></div><div class="body"><h3>Piscina</h3><p>Temporada de verano. Cursos de natación.</p></div></article>
+        <article class="card"><div class="media"></div><div class="body"><h3>Ruta BTT</h3><p>Senderos señalizados con diferentes niveles.</p></div></article>
+      </div>
+    </section>
+
+    <!-- NATURALEZA -->
+    <section id="naturaleza" class="container">
+      <div class="section-title"><h2>Naturaleza</h2><span class="subtitle">Rutas, botánica, aves y parajes</span></div>
+      <details open>
+        <summary>Rutas</summary>
+        <p>Mapas, tracks GPX y consejos prácticos.</p>
+      </details>
+      <details>
+        <summary>Botánica</summary>
+        <p>Especies locales y árboles singulares.</p>
+      </details>
+      <details>
+        <summary>Aves</summary>
+        <p>Guía de observación y miradores.</p>
+      </details>
+      <details>
+        <summary>Parajes</summary>
+        <p>Miradores, riberas y cascadas cercanas.</p>
+      </details>
+    </section>
+
+    <!-- FIESTAS -->
+    <section id="fiestas" class="container alt">
+      <div class="section-title"><h2>Fiestas</h2><span class="subtitle">Programas, calendario y hemeroteca por años</span></div>
+      <p>Consulta fechas señaladas en el <a href="#calendario">calendario</a> y accede a programas y galerías históricas en la <a href="#hemeroteca">hemeroteca</a>.</p>
+    </section>
+
+    <!-- CASA DE PIEDRA -->
+    <section id="casa-de-piedra" class="container">
+      <div class="section-title"><h2>Casa de Piedra</h2><span class="subtitle">Elemento emblemático</span></div>
+      <div class="grid cols-2">
+        <div><p>Descripción, historia y uso actual. Inserte aquí fotos y vídeo de la Casa de Piedra.</p></div>
+        <div class="card"><div class="media"></div><div class="body"><a class="btn" href="#galeria">Ver galería</a></div></div>
+      </div>
+    </section>
+
+    <!-- ENTORNO -->
+    <section id="entorno" class="container alt">
+      <div class="section-title"><h2>Entorno</h2><span class="subtitle">Sigüenza · Medinaceli · Alto Tajo · Río Dulce</span></div>
+      <div class="grid cols-4">
+        <article class="card"><div class="media"></div><div class="body"><h3>Sigüenza</h3><p>Subsección con textos, galería y vídeo.</p></div></article>
+        <article class="card"><div class="media"></div><div class="body"><h3>Medinaceli</h3><p>Ideas de escapada y visita.</p></div></article>
+        <article class="card"><div class="media"></div><div class="body"><h3>Alto Tajo</h3><p>Parque Natural: rutas y miradores.</p></div></article>
+        <article class="card"><div class="media"></div><div class="body"><h3>Río Dulce</h3><p>Hoces y parajes imprescindibles.</p></div></article>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section id="galeria" class="container">
+      <div class="section-title"><h2>Galería de imágenes</h2><span class="subtitle">Ligada al resto de secciones</span></div>
+      <div class="gallery" id="gallery">
+        <a href="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop"><img alt="Paisaje 1" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=600&auto=format&fit=crop"/></a>
+        <a href="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1600&auto=format&fit=crop"><img alt="Paisaje 2" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=600&auto=format&fit=crop"/></a>
+        <a href="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?q=80&w=1600&auto=format&fit=crop"><img alt="Paisaje 3" src="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?q=80&w=600&auto=format&fit=crop"/></a>
+        <a href="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=1600&auto=format&fit=crop"><img alt="Paisaje 4" src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=600&auto=format&fit=crop"/></a>
+      </div>
+      <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visor de imagen"><img alt=""/></div>
+    </section>
+
+    <!-- ESTABLECIMIENTOS -->
+    <section id="establecimientos" class="container alt">
+      <div class="section-title"><h2>Establecimientos</h2><span class="subtitle">Bares, restaurantes, comercios y alojamientos</span></div>
+      <div class="filters">
+        <input type="search" id="searchEst" placeholder="Buscar por nombre o descripción…"/>
+        <button class="pill active" data-cat="todos">Todos</button>
+        <button class="pill" data-cat="bar">Bares</button>
+        <button class="pill" data-cat="restaurante">Restaurantes</button>
+        <button class="pill" data-cat="comercio">Comercios</button>
+        <button class="pill" data-cat="alojamiento">Alojamientos</button>
+      </div>
+      <div class="grid cols-3" id="estGrid"></div>
+    </section>
+
+    <!-- HEMEROTECA -->
+    <section id="hemeroteca" class="container">
+      <div class="section-title"><h2>Hemeroteca</h2><span class="subtitle">Programas y galerías por años</span></div>
+      <label for="yearSel">Año:</label>
+      <select id="yearSel"></select>
+      <div id="hemeroList" style="margin-top:1rem" class="grid cols-3"></div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="container alt">
+      <div class="section-title"><h2>Contacto</h2><span class="subtitle">Cómo llegar, formulario y teléfono</span></div>
+      <div class="grid cols-2">
+        <form class="card" onsubmit="event.preventDefault(); alert('Formulario de ejemplo. Conéctelo a su backend.');">
+          <div class="body">
+            <div class="grid cols-2">
+              <p><label>Nombre<br><input required style="width:100%;padding:.6rem;border-radius:10px;border:1px solid #e2e8f0"></label></p>
+              <p><label>Email<br><input type="email" required style="width:100%;padding:.6rem;border-radius:10px;border:1px solid #e2e8f0"></label></p>
+            </div>
+            <p><label>Mensaje<br><textarea required rows="5" style="width:100%;padding:.6rem;border-radius:10px;border:1px solid #e2e8f0"></textarea></label></p>
+            <button class="btn primary" type="submit">Enviar</button>
+          </div>
+        </form>
+        <div>
+          <div class="card"><div class="body">
+            <h3>Ayuntamiento de Alcolea</h3>
+            <p><strong>Tel.:</strong> <a href="tel:+34949123456">+34 949 123 456</a><br>
+            <strong>Email:</strong> <a href="mailto:info@alcolea.es">info@alcolea.es</a></p>
+            <p><strong>Cómo llegar:</strong> Carretera N-XXX, conexión con A-2. <em>(Sustituir por indicaciones reales)</em></p>
+          </div></div>
+          <div class="card" style="margin-top:1rem">
+            <div class="media" style="aspect-ratio:16/9">
+              <iframe title="Mapa de Alcolea" width="100%" height="100%" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193571.4382620012!2d-3.8196206!3d40.4381311"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot-grid">
+      <div>
+        <strong>Alcolea · Turismo</strong>
+        <p>Portal turístico municipal. Acceso a todas las imágenes desde la galería. Posibilidad de crear nuevos items en el menú raíz.</p>
+      </div>
+      <div>
+        <strong>Secciones</strong>
+        <ul>
+          <li><a href="#que-ver">Qué ver</a></li>
+          <li><a href="#que-hacer">Qué hacer</a></li>
+          <li><a href="#calendario">Calendario</a></li>
+          <li><a href="#fiestas">Fiestas</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong>Legal</strong>
+        <ul>
+          <li><a href="#">Aviso legal</a></li>
+          <li><a href="#">Privacidad</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container" style="margin-top:1rem;font-size:.9rem;color:#a7f3d0">© <span id="y"></span> Ayuntamiento de Alcolea. Todos los derechos reservados.</div>
+  </footer>
+
+  <script>
+    // --- Utilidades ---
+    const $ = (sel,ctx=document) => ctx.querySelector(sel);
+    const $$ = (sel,ctx=document) => Array.from(ctx.querySelectorAll(sel));
+
+    // --- Menú responsive ---
+    const burger = $('#btnBurger');
+    const menu = $('#mainMenu');
+    burger.addEventListener('click', ()=> menu.classList.toggle('open'));
+
+    // --- Smooth scroll ---
+    $$('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href');
+        const el = $(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); menu.classList.remove('open'); }
+      });
+    });
+
+    // --- Carrusel portada ---
+    const slides = $$('.slide');
+    let idx = 0;
+    setInterval(()=>{ slides[idx].classList.remove('active'); idx = (idx+1)%slides.length; slides[idx].classList.add('active'); }, 5000);
+
+    // --- Tabs Qué hacer ---
+    $$('.tabs button').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        $$('.tabs button').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        $$('.tab-panel').forEach(p=>p.hidden=true);
+        const panel = '#'+btn.dataset.tab;
+        $(panel).hidden=false;
+      });
+    });
+
+    // --- Calendario interactivo ---
+    const monthsES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    const calTitle = $('#calTitle');
+    const calGrid = $('#calGrid');
+    const eventList = $('#eventList');
+
+    // Datos de ejemplo (sustituir por CMS / backend)
+    const EVENTS = [
+      {date:'2025-09-08', title:'Fiesta Mayor', k:'Fiestas', href:'#fiestas', place:'Plaza Mayor'},
+      {date:'2025-09-10', title:'Taller familiar en el Museo', k:'Museo', href:'#museo', place:'Museo Local'},
+      {date:'2025-10-01', title:'Ruta guiada del Río Dulce', k:'Naturaleza', href:'#naturaleza', place:'Sendero Río Dulce'},
+      {date:'2025-10-12', title:'Partido solidario', k:'Deportes', href:'#deportes', place:'Polideportivo'},
+      {date:'2025-12-06', title:'Concierto en la Iglesia', k:'Cultura', href:'#iglesia', place:'Iglesia Parroquial'}
+    ];
+
+    let ref = new Date();
+    function renderCalendar(){
+      const y = ref.getFullYear(), m = ref.getMonth();
+      calTitle.textContent = `${monthsES[m]} ${y}`;
+      // limpiar días previos (dejando cabeceras)
+      calGrid.querySelectorAll('.day').forEach(d=>d.remove());
+      const first = new Date(y,m,1);
+      const startIdx = (first.getDay()+6)%7; // convertir a L=0..D=6
+      const daysInMonth = new Date(y, m+1, 0).getDate();
+      const prevDays = new Date(y, m, 0).getDate();
+
+      // días del mes anterior visibles
+      for(let i=startIdx-1; i>=0; i--){
+        const d = document.createElement('button');
+        d.className='day muted';
+        d.textContent = (prevDays - i);
+        d.tabIndex=-1;
+        calGrid.appendChild(d);
+      }
+      // días del mes actual
+      for(let dNum=1; dNum<=daysInMonth; dNum++){
+        const cell = document.createElement('button');
+        cell.className='day';
+        const d = new Date(y,m,dNum);
+        cell.textContent = dNum;
+        if(new Date().toDateString() === d.toDateString()) cell.classList.add('today');
+        const key = d.toISOString().slice(0,10);
+        const list = EVENTS.filter(e=>e.date===key);
+        if(list.length){ cell.classList.add('has-event'); const dot=document.createElement('span'); dot.className='dot'; cell.appendChild(dot); }
+        cell.addEventListener('click',()=>showEventsForDate(key));
+        calGrid.appendChild(cell);
+      }
+      // completar con días del siguiente mes
+      const filled = calGrid.querySelectorAll('.day').length;
+      const remainder = Math.ceil(filled/7)*7 - filled;
+      for(let i=1;i<=remainder;i++){
+        const d = document.createElement('button');
+        d.className='day muted';
+        d.textContent = i;
+        d.tabIndex=-1;
+        calGrid.appendChild(d);
+      }
+      // lista de próximas actividades (próximos 6)
+      renderUpcoming();
+    }
+    function showEventsForDate(iso){
+      const list = EVENTS.filter(e=>e.date===iso);
+      eventList.innerHTML = list.length? list.map(ev=>
+        `<div class="event"><strong>${ev.title}</strong><div class="k">${ev.k} · ${new Date(iso).toLocaleDateString('es-ES')}</div><div>${ev.place??''}</div><a class="btn" style="margin-top:.4rem" href="${ev.href}">Ver sección</a></div>`
+      ).join('') : `<p>No hay actividades para esta fecha.</p>`;
+    }
+    function renderUpcoming(){
+      const today = new Date().toISOString().slice(0,10);
+      const list = EVENTS.filter(e=>e.date>=today).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,6);
+      eventList.innerHTML = list.map(ev=>
+        `<div class="event"><strong>${ev.title}</strong><div class="k">${ev.k} · ${new Date(ev.date).toLocaleDateString('es-ES')}</div><div>${ev.place??''}</div><a class="btn" style="margin-top:.4rem" href="${ev.href}">Ver sección</a></div>`
+      ).join('');
+    }
+
+    $('#prevMonth').addEventListener('click',()=>{ ref.setMonth(ref.getMonth()-1); renderCalendar(); });
+    $('#nextMonth').addEventListener('click',()=>{ ref.setMonth(ref.getMonth()+1); renderCalendar(); });
+    renderCalendar();
+
+    // --- Lightbox galería ---
+    const lb = $('#lightbox');
+    $('#gallery').addEventListener('click', e=>{
+      const a = e.target.closest('a');
+      if(!a) return;
+      e.preventDefault();
+      lb.querySelector('img').src = a.href;
+      lb.classList.add('open');
+    });
+    lb.addEventListener('click', ()=> lb.classList.remove('open'));
+
+    // --- Establecimientos (datos de ejemplo) ---
+    const ESTABLECIMIENTOS = [
+      {nombre:'Bar Plaza', cat:'bar', desc:'Tapas y terraza en la plaza.', tel:'+34 600 111 222'},
+      {nombre:'Restaurante Dulce', cat:'restaurante', desc:'Cocina local y menú diario.', tel:'+34 600 333 444'},
+      {nombre:'Alojamiento Río', cat:'alojamiento', desc:'Casa rural junto al río.', tel:'+34 600 555 666'},
+      {nombre:'Colmado Alcolea', cat:'comercio', desc:'Productos de proximidad.', tel:'+34 600 777 888'},
+      {nombre:'Hostal Central', cat:'alojamiento', desc:'Habitaciones cómodas en el centro.', tel:'+34 600 999 000'},
+    ];
+    const estGrid = $('#estGrid');
+    const searchEst = $('#searchEst');
+    const pills = $$('.filters .pill');
+    let activeCat = 'todos';
+    function renderEst(){
+      const q = searchEst.value.toLowerCase();
+      estGrid.innerHTML = ESTABLECIMIENTOS.filter(e=> (activeCat==='todos'||e.cat===activeCat) && (e.nombre.toLowerCase().includes(q)||e.desc.toLowerCase().includes(q)) ).map(e=>
+        `<article class="card"><div class="body"><h3>${e.nombre}</h3><p>${e.desc}</p><span class="chip">${e.cat}</span><p><a href="tel:${e.tel}">${e.tel}</a></p></div></article>`
+      ).join('');
+    }
+    pills.forEach(p=>p.addEventListener('click',()=>{pills.forEach(x=>x.classList.remove('active')); p.classList.add('active'); activeCat=p.dataset.cat; renderEst();}));
+    searchEst.addEventListener('input', renderEst);
+    renderEst();
+
+    // --- Hemeroteca (datos de ejemplo) ---
+    const HEMERO = {
+      2025:[{t:'Fiestas 2025 · Programa', kind:'PDF'},{t:'Galería 2025 · Agosto', kind:'Fotos'}],
+      2024:[{t:'Fiestas 2024 · Programa', kind:'PDF'},{t:'Galería 2024 · Septiembre', kind:'Fotos'}],
+      2023:[{t:'Fiestas 2023 · Programa', kind:'PDF'}]
+    };
+    const yearSel = $('#yearSel');
+    const hemeroList = $('#hemeroList');
+    Object.keys(HEMERO).sort((a,b)=>b-a).forEach(y=>{
+      const opt = document.createElement('option'); opt.value=y; opt.textContent=y; yearSel.appendChild(opt);
+    });
+    function renderH(){
+      const y = yearSel.value; const items = HEMERO[y]||[];
+      hemeroList.innerHTML = items.map(i=>`<article class="card"><div class="body"><strong>${i.t}</strong><div class="k">${i.kind}</div><a class="btn" style="margin-top:.4rem" href="#">Abrir</a></div></article>`).join('');
+    }
+    yearSel.addEventListener('change', renderH);
+    yearSel.value = Object.keys(HEMERO).sort((a,b)=>b-a)[0];
+    renderH();
+
+    // Año en el pie
+    $('#y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
