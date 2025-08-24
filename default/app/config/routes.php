@@ -23,7 +23,7 @@ return [
         /**
          * Muestra la info relacionado con el framework
          */
-        '/' => 'index/index',
+        '/' => 'home/index',
         /**
          * Status del config.php/config.ini
          */

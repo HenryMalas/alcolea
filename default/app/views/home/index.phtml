@@ -1,0 +1,26 @@
+<?php View::template('turismo') ?>
+<?php View::partial('hero') ?>
+<?php View::partial('que_ver', null, array('key_sections'=>$key_sections)) ?>
+<?php View::partial('que_hacer') ?>
+<?php View::partial('calendario') ?>
+<?php View::partial('galeria', null, array('gallery'=>$gallery)) ?>
+<?php View::partial('establecimientos', null, array('establishments'=>$establishments)) ?>
+<script id="eventsJSON" type="application/json">
+<?php
+$ev_json = array_map(function($ev){
+  $slug = '';
+  if ($ev->section_id) {
+    $s = (new Section)->find_first($ev->section_id);
+    if ($s) $slug = $s->slug;
+  }
+  return [
+    'date' => $ev->start_date,
+    'title' => $ev->title,
+    'category' => $ev->category,
+    'place' => $ev->place,
+    'href' => $slug? "/sections/show/$slug" : ''
+  ];
+}, $events);
+echo json_encode($ev_json, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+?>
+</script>

@@ -1,0 +1,25 @@
+<?php View::template('turismo') ?>
+<?php if (!isset($entries)): ?>
+  <h1 class="h3">Hemeroteca</h1>
+  <ul class="list-inline">
+    <?php foreach ($years as $y): ?>
+      <li class="list-inline-item"><a class="btn btn-outline-teal btn-sm" href="/hemeroteca/index/<?php echo $y->year ?>"><?php echo $y->year ?></a></li>
+    <?php endforeach ?>
+  </ul>
+<?php else: ?>
+  <h1 class="h3">Hemeroteca · <?php echo $year ?></h1>
+  <div class="row g-3">
+  <?php foreach ($entries as $e): ?>
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <strong><?php echo $e->title ?></strong>
+          <div class="small text-muted"><?php echo $e->kind ?></div>
+          <?php if ($e->file_url): ?><a class="btn btn-sm btn-outline-teal mt-2" href="<?php echo $e->file_url ?>" target="_blank">Abrir</a><?php endif; ?>
+          <?php if ($e->gallery_section_id): ?><a class="btn btn-sm btn-outline-teal mt-2" href="/sections/show/<?php echo (new Section)->find_first($e->gallery_section_id)->slug ?>">Ver galería</a><?php endif; ?>
+        </div>
+      </div>
+    </div>
+  <?php endforeach ?>
+  </div>
+<?php endif; ?>

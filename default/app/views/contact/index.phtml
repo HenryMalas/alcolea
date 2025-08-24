@@ -1,0 +1,17 @@
+<?php View::template('turismo') ?>
+<h1 class="h3">Contacto</h1>
+<div class="row g-3">
+  <div class="col-md-6">
+    <form onsubmit="event.preventDefault();alert('Demo: conecta con tu backend/envío de correo');">
+      <div class="row g-2">
+        <div class="col-md-6"><label class="form-label">Nombre<input class="form-control" required></label></div>
+        <div class="col-md-6"><label class="form-label">Email<input class="form-control" type="email" required></label></div>
+      </div>
+      <label class="form-label mt-2">Mensaje<textarea class="form-control" rows="5" required></textarea></label>
+      <button class="btn btn-teal mt-2">Enviar</button>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <div class="ratio ratio-16x9"><iframe title="Mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193571.4382620012!2d-3.8196206!3d40.4381311" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+  </div>
+</div>
