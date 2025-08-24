@@ -79,7 +79,7 @@ define('CORE_PATH', dirname(APP_PATH, 2) . '/core/');
  *  EN PRODUCCION ESTA CONSTANTE DEBERÍA SER ESTABLECIDA MANUALMENTE
  */
 //define('PUBLIC_PATH', substr($_SERVER['SCRIPT_NAME'], 0, -9)); // - index.php string[9]
-define('PUBLIC_PATH', 'alcolea/');
+define('PUBLIC_PATH', '/alcolea/');
 
 /**
  * En producción descomentar la línea de arriba y usar const
