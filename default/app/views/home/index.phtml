@@ -14,7 +14,7 @@ $ev_json = array_map(function($ev){
     if ($s) $slug = $s->slug;
   }
   return [
-    'date' => $ev->start_date,
+    'date' => substr($ev->start_date, 0, 10),
     'title' => $ev->title,
     'category' => $ev->category,
     'place' => $ev->place,
